@@ -18,3 +18,8 @@ body {
    */
   background-image: url('./images/bg-pattern.png');
 }
+
+.card-countries {
+  display: flex;
+  float: left;
+}
