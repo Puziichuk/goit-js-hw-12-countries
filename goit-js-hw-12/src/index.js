@@ -38,7 +38,7 @@ function searchFormInputHandler(e) {
     const renderCountriesList = buildCountriesList(data);
     if (!data) {
       return;
-    } else if (data.length > 10) {
+    } else if (renderCountriesList > 10) {
       PNotify.defaults.styling = 'material';
       PNotify.error({
         title: 'Oh No!',
