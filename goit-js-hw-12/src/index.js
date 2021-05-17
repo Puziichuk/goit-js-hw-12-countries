@@ -4,8 +4,9 @@ import countriesItem from './templates/countries-item.hbs';
 
 import fetchCountries from './fetchCountries.js';
 import { error } from '@pnotify/core';
-import '@pnotify/core/dist/PNotify.css';
-import '@pnotify/core/dist/BrightTheme.css';
+import '../node_modules/@pnotify/core/dist/PNotify.css'
+import '../node_modules/@pnotify/core/BrightTheme.css'
+
 import debounce from 'lodash.debounce';
 
 
@@ -33,26 +34,23 @@ function searchFormInputHandler(e) {
 
     clearListItems();
 
-   fetchCountries(searchQuery).then(data => {
+  fetchCountries(searchQuery).then(data => {
     const markup = buildListItemMarkup(data);
     const renderCountriesList = buildCountriesList(data);
-    if (!data) {
-      return;
-    } else if (renderCountriesList > 10) {
-      PNotify.defaults.styling = 'material';
-      PNotify.error({
-        title: 'Oh No!',
-        text: 'Too many matches found.Please enter a more specific query',
-      });
-    } else if (data.length >= 2 && data.length <= 10) {
-      insertListItem(renderCountriesList);
-    } else if (data.length === 1) {
-      insertListItem(markup);
-    } else {
-      alert('Ничего не найдено.Корректно введите запрос');
-    }
+      if (data.length > 10) {
+        PNotify.error({
+          text: 'Too many matches found.Please enter a more specific query',
+        });
+      } else if (data.length >= 2 && data.length <= 10) {
+        insertListItem(renderCountriesList);
+      } else if (data.length === 1) {
+        insertListItem(markup);
+    } 
   });
 }
+  
+  
+  
 
 function insertListItem(items) {
   refs.cardContainer.insertAdjacentHTML('beforeend', items);
